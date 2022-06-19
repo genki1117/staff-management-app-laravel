@@ -8,7 +8,9 @@ use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\AdminsController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +23,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.welcome');
-});
+// Route::get('/', function () {
+//     return view('admin.welcome');
+// });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth:admin'])->name('dashboard');
 
+Route::resource('admin', AdminsController::class)
+->middleware('auth:admin');
+
+Route::prefix('epired-admin')->middleware('auth:admin')->group(function(){
+    Route::get('index', [AdminsController::class, 'expiredAdminIndex'])->name('expired-admin.index');
+    Route::post('restore/{admin}', [AdminsController::class, 'expiredAdminRestore'])->name('expired-admin.restore');
+    Route::post('destroy/{admin}', [AdminsController::class, 'expiredAdminDestroy'])->name('expired-admin.destroy');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
