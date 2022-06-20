@@ -8,6 +8,8 @@ use App\Models\Admin;
 use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Storage;
+use InterventionImage;
 
 class AdminsController extends Controller
 {
@@ -18,7 +20,7 @@ class AdminsController extends Controller
      */
     public function index()
     {
-        $admins = Admin::select('id', 'name', 'age', 'email', 'department_id', 'created_at')->get();
+        $admins = Admin::select('id', 'name', 'age', 'email', 'department_id', 'file_path', 'created_at')->get();
 
         return view('admin.index', compact('admins'));
     }
@@ -42,6 +44,21 @@ class AdminsController extends Controller
      */
     public function store(Request $request)
     {
+        //フォームからファイルを取得
+        //フォームのname="image"
+        $image_file = $request->file('image');
+
+        //ファイル名を一意の名前に変更し取得
+        $extension = $image_file->extension();
+        $file_name = uniqid(rand());
+        $file_name_store = $file_name . '.' . $extension;
+
+        //縦のサイズだけリサイズし、storage/app/public/に保存。
+        //publicフォルダにシンボリック作成済み
+        InterventionImage::make($image_file)->resize(1080, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save(storage_path('/app/public/' . $file_name_store));;
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'age' => ['required'],
@@ -55,10 +72,11 @@ class AdminsController extends Controller
             'age' => $request->age,
             'email' => $request->email,
             'department_id' => $request->department_id,
+            'file_path' => $file_name_store,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.admin.index');
     }
 
     /**

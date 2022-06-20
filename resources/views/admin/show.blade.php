@@ -16,7 +16,12 @@
                             </div>
                             <div class="flex justify-between mt-12 lg:w-1/2 md:w-2/3 mx-auto">
                                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
-                                    <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
+                                    @if ($admin->file_path == '')
+                                        <img class="object-cover object-center rounded" alt="hero" src="{{ asset('images/lion.jpg') }}">
+                                    @else
+                                        <img class="object-cover object-center rounded" alt="hero" src="{{ asset('storage/' . $admin->file_path) }}">
+                                    @endif
+                                    
                                 </div>
                                 <div class="ml-16 mx-auto">
                                     <div class="p-2 mx-auto">

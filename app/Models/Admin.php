@@ -23,6 +23,7 @@ class Admin extends Authenticatable
         'age',
         'email',
         'department_id',
+        'file_path',
         'password',
     ];
 

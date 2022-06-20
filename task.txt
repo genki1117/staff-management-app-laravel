@@ -1,0 +1,6 @@
+・AdminsContoller validation requestClassに切り分け
+・AdminsContoller validation constructにmiddleware
+・css修正
+・画像アップロード実装
+・Admin/OwnersContoller作成
+    各機能実装。

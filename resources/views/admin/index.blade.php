@@ -19,7 +19,8 @@
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                     <tr>
-                                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">氏名</th>
+                                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl"></th>
+                                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">氏名</th>
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">年齢</th>
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">メールアドレス</th>
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">部署</th>
@@ -29,6 +30,15 @@
                                     <tbody>
                                     @foreach ($admins as $admin)
                                         <tr>
+                                        @if ($admin->file_path == '')
+                                            <td class="px-4 py-3">
+                                            <img src="{{asset('images/lion.jpg')}}" width="50px" height="50px" alt="">
+                                        </td>
+                                        @else
+                                            <td class="px-4 py-3">
+                                            <img src="{{asset('storage/' . $admin->file_path)}}" width="50px" height="50px" alt="">
+                                        </td>
+                                        @endif
                                         <td class="px-4 py-3">{{ $admin->name }}</td>
                                         <td class="px-4 py-3">{{ $admin->age }}</td>
                                         <td class="px-4 py-3">{{ $admin->email }}</td>
