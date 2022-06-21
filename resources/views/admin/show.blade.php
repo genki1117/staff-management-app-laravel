@@ -21,7 +21,6 @@
                                     @else
                                         <img class="object-cover object-center rounded" alt="hero" src="{{ asset('storage/' . $admin->file_path) }}">
                                     @endif
-                                    
                                 </div>
                                 <div class="ml-16 mx-auto">
                                     <div class="p-2 mx-auto">
