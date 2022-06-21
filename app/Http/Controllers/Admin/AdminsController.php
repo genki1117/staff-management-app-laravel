@@ -8,8 +8,8 @@ use App\Models\Admin;
 use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Storage;
-use InterventionImage;
+use App\Http\Requests\UploadImageRequest;
+use App\Services\ImageService;
 
 class AdminsController extends Controller
 {
@@ -42,22 +42,11 @@ class AdminsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UploadImageRequest $request)
     {
-        //フォームからファイルを取得
-        //フォームのname="image"
         $image_file = $request->file('image');
-
-        //ファイル名を一意の名前に変更し取得
-        $extension = $image_file->extension();
-        $file_name = uniqid(rand());
-        $file_name_store = $file_name . '.' . $extension;
-
-        //縦のサイズだけリサイズし、storage/app/public/に保存。
-        //publicフォルダにシンボリック作成済み
-        InterventionImage::make($image_file)->resize(1080, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save(storage_path('/app/public/' . $file_name_store));;
+        $file_path = '/app/public/';
+        $file_name_store = ImageService::upload($image_file, $file_path);
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -113,9 +102,12 @@ class AdminsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UploadImageRequest $request, $id)
     {
         $admin = Admin::findOrFail($id);
+        $image_file = $request->file('image');
+        $file_path = '/app/public/';
+        $file_name_store = ImageService::upload($image_file, $file_path);
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -125,11 +117,11 @@ class AdminsController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-
         $admin->name = $request->name;
         $admin->age = $request->age;
         $admin->email = $request->email;
         $admin->department_id = $request->department_id;
+        $admin->file_path = $file_name_store;
         $admin->password = Hash::make($request->password);
         $admin->save();
 

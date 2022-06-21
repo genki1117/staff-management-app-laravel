@@ -15,7 +15,7 @@
                             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">管理者編集</h1>
                             </div>
                             <div class="lg:w-1/2 md:w-2/3 mx-auto">
-                                <form method="post" action="{{ route('admin.admin.update', $admin->id) }}">
+                                <form method="post" action="{{ route('admin.admin.update', $admin->id) }}" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="-m-2">
@@ -45,6 +45,12 @@
                                                         <option value="{{ $department->id }}"  @if($admin->department_id == $department->id) selected @endif>{{ $department->name }}</option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="p-2 w-1/2 mx-auto">
+                                            <div class="relative">
+                                                <label for="image" class="leading-7 text-sm text-gray-600">画像</label>
+                                                <input type="file" id="image" name="image" class="w-full bg-opacity-50 rounded focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             </div>
                                         </div>
                                         <div class="p-2 w-1/2 mx-auto">
