@@ -19,7 +19,10 @@ class Owner extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'age',
         'email',
+        'department_id',
+        'file_path',
         'password',
     ];
 
@@ -41,4 +44,14 @@ class Owner extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the department that owns the Owner
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }
