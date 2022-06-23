@@ -44,13 +44,9 @@ class AdminsController extends Controller
      */
     public function store(UploadImageRequest $request)
     {
-        if (!$request->image == null) {
-            $image_file = $request->file('image');
-            $file_path = '/app/public/';
-            $file_name_store = ImageService::upload($image_file, $file_path);
-        } else {
-            $file_name_store = null;
-        }
+        $image_file = $request->file('image');
+        $file_path = '/app/public/';
+        $file_name_store = ImageService::upload($image_file, $file_path);
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -109,13 +105,9 @@ class AdminsController extends Controller
     public function update(UploadImageRequest $request, $id)
     {
         $admin = Admin::findOrFail($id);
-        if (!$request->image == null) {
-            $image_file = $request->file('image');
-            $file_path = '/app/public/';
-            $file_name_store = ImageService::upload($image_file, $file_path);
-        } else {
-            $file_name_store = null;
-        }
+        $image_file = $request->file('image');
+        $file_path = '/app/public/';
+        $file_name_store = ImageService::upload($image_file, $file_path);
 
 
         $request->validate([

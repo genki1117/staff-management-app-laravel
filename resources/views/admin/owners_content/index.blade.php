@@ -47,7 +47,7 @@
                                         <td class="md:px-4 py-3">{{ $owner->department->name }}</td>
                                         <td class="md:px-4 py-3">
                                             {{-- <a href="{{ route('admin.show', $admin->id) }}" class="btn btn-primary btn-sm">詳細</a> --}}
-                                            <button onclick="location.href='{{ route('admin.admin.show', $owner->id) }}'" class="text-white bg-indigo-400 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-500 rounded">
+                                            <button onclick="location.href='{{ route('admin.owners.show', $owner->id) }}'" class="text-white bg-indigo-400 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-500 rounded">
                                                 詳細
                                             </button>
                                         </td>
