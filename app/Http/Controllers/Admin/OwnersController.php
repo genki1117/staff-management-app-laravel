@@ -143,4 +143,16 @@ class OwnersController extends Controller
         $expired_owners = Owner::onlyTrashed()->get();
         return view('admin.owners_content.expired_owners_index', compact('expired_owners'));
     }
+
+    public function expiredOwnersRestore()
+    {
+        Owner::onlyTrashed()->restore();
+        return redirect()->route('admin.owners.index');
+    }
+
+    public function expiredOwnersDestroy()
+    {
+        Owner::onlyTrashed()->forceDelete();
+        return redirect()->route('admin.owners.index');
+    }
 }
