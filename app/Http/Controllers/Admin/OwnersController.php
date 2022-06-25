@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Models\Department;
 use App\Http\Requests\UploadImageRequest;
-use InterventionImage;
 use App\Services\ImageService;
 
 class OwnersController extends Controller
@@ -89,7 +88,9 @@ class OwnersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $owner = Owner::findOrFail($id);
+        $departments = Department::all();
+        return view('admin.owners_content.edit', compact('owner', 'departments'));
     }
 
     /**
@@ -99,9 +100,30 @@ class OwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UploadImageRequest $request, $id)
     {
-        //
+        $owner = Owner::findOrFail($id);
+        $image_file = $request->file('image');
+        $file_path = '/app/public/';
+        $file_name_store = ImageService::upload($image_file, $file_path);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'age' => 'required',
+            'email' => 'required|email|unique:owners,email,' . $owner->id,
+            'department_id' => 'required',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $owner->name = $request->name;
+        $owner->age = $request->age;
+        $owner->email = $request->email;
+        $owner->department_id = $request->department_id;
+        $owner->file_path = $file_name_store;
+        $owner->password = Hash::make($request->password);
+        $owner->save();
+
+        return redirect()->route('admin.owners.index');
     }
 
     /**
@@ -112,6 +134,13 @@ class OwnersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Owner::findOrFail($id)->delete();
+        return redirect()->route('admin.owners.index');
+    }
+
+    public function expiredOwnersIndex()
+    {
+        $expired_owners = Owner::onlyTrashed()->get();
+        return view('admin.owners_content.expired_owners_index', compact('expired_owners'));
     }
 }

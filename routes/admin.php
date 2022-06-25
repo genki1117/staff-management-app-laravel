@@ -36,7 +36,7 @@ Route::get('/dashboard', function () {
 Route::resource('admin', AdminsController::class)
 ->middleware('auth:admin');
 
-Route::prefix('epired-admin')->middleware('auth:admin')->group(function(){
+Route::prefix('expired-admin')->middleware('auth:admin')->group(function(){
     Route::get('index', [AdminsController::class, 'expiredAdminIndex'])->name('expired-admin.index');
     Route::post('restore/{admin}', [AdminsController::class, 'expiredAdminRestore'])->name('expired-admin.restore');
     Route::post('destroy/{admin}', [AdminsController::class, 'expiredAdminDestroy'])->name('expired-admin.destroy');
@@ -45,6 +45,16 @@ Route::prefix('epired-admin')->middleware('auth:admin')->group(function(){
 //ownersContent
 Route::resource('owners', OwnersController::class)
 ->middleware('auth:admin');
+
+Route::prefix('expired-owners')->middleware('auth:admin')->group(function(){
+    Route::get('index', [OwnersController::class, 'expiredOwnersIndex'])->name('expired-owners.index');
+    Route::post('restore/{owner}', [OwnersController::class, 'expiredOwnersRestore'])->name('expired-owners.restore');
+    Route::post('destroy/{owner}', [OwnersController::class, 'expiredOwnersDestroy'])->name('expired-owners.destroy');
+});
+
+
+
+
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

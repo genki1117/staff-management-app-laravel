@@ -19,7 +19,7 @@
                                     @if ($owner->file_path == '')
                                         <img class="object-cover object-center rounded" alt="hero" src="{{ asset('images/lion.jpg') }}">
                                     @else
-                                        <img class="object-cover object-center rounded" alt="hero" src="{{ asset('storage/' . $admin->file_path) }}">
+                                        <img class="object-cover object-center rounded" alt="hero" src="{{ asset('storage/' . $owner->file_path) }}">
                                     @endif
                                 </div>
                                 <div class="ml-16 mx-auto">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="mt-12 p-2 w-full flex justify-around">
                                 <button type="button" onclick="location.href='{{ route('admin.owners.index') }}'" class="bg-gray-300 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">戻る</button>
-                                <button type="button" onclick="location.href='{{ route('admin.owners.edit', $owner->id) }}'" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</button>
+                                <button type="button" onclick="location.href='{{ route('admin.owners.edit', ['owner' => $owner->id ]) }}'" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</button>
                             </div>
                         </div>
                         <div class="-mt-10 text-right">

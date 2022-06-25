@@ -12,23 +12,33 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('admin.admin.index')" :active="request()->routeIs('admin.index')">
+                    <x-nav-link :href="route('admin.admin.index')" :active="request()->routeIs('admin.admin.index')">
                         管理者一覧
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('admin.admin.create')" :active="request()->routeIs('admin.create')">
+                    <x-nav-link :href="route('admin.admin.create')" :active="request()->routeIs('admin.admin.create')">
                         管理者登録
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('admin.expired-admin.index')" :active="request()->routeIs('admin.create')">
+                    <x-nav-link :href="route('admin.expired-admin.index')" :active="request()->routeIs('admin.expired-admin.index')">
                         削除済み管理者
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('admin.owners.index')" :active="request()->routeIs('admin.create')">
+                    <x-nav-link :href="route('admin.owners.index')" :active="request()->routeIs('admin.owners.index')">
                         オーナー一覧
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('admin.owners.create')" :active="request()->routeIs('admin.owners.create')">
+                        オーナー一覧
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('admin.expired-owners.index')" :active="request()->routeIs('admin.owners.create')">
+                        削除済みオーナー一覧
                     </x-nav-link>
                 </div>
             </div>
@@ -78,8 +88,28 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('admin.admin.index')" :active="request()->routeIs('admin.index')">
+            <x-responsive-nav-link :href="route('admin.admin.index')" :active="request()->routeIs('admin.admin.index')">
                 管理者一覧
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('admin.admin.create')" :active="request()->routeIs('admin.admin.create')">
+                管理者登録
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('admin.expired-admin.index')" :active="request()->routeIs('admin.expired-admin.index')">
+                削除済み管理者
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('admin.owners.index')" :active="request()->routeIs('admin.owners.index')">
+                オーナー一覧
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('admin.owners.create')" :active="request()->routeIs('admin.owners.create')">
+                オーナー登録
             </x-responsive-nav-link>
         </div>
 
