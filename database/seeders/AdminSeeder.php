@@ -44,7 +44,14 @@ class AdminSeeder extends Seeder
                 'email' => 'admin_test4@test.com',
                 'department_id' => 1,
                 'password' => Hash::make('password123')
-            ]
+            ],
+                [
+                    'name' => 'admin_test5',
+                    'age' => 66,
+                    'email' => 'admin_test5@test.com',
+                    'department_id' => 1,
+                    'password' => Hash::make('password123')
+                ]
         ]
         );
     }

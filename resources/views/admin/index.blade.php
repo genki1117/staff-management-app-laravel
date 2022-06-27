@@ -55,7 +55,11 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {{ $admins->links() }}
                             </div>
+                        </div>
+                        <div class="mt-8">
+                            <a href="{{ route('admin.csvDownLoad') }}">csvダウンロード</a>
                         </div>
                     </section>
                 </div>

@@ -72,6 +72,17 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="lg:w-1/2 md:w-2/3 mx-auto mt-12">
+                                <hr>
+                                <form action="{{ route('admin.admin_csv_upload') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <label for="csvfile" class="leading-7 text-sm text-gray-600">csvアップロード</label>
+                                    <div class="p-2 w-full flex justify-around mt-4">
+                                            <input type="file" id="csvfile" name="csvfile" class="bg-opacity-50 rounded focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 leading-8 transition-colors duration-200 ease-in-out">
+                                            <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録</button>
+                                        </div>
+                                </form>
+                            </div>
                         </div>
                     </section>
                 </div>

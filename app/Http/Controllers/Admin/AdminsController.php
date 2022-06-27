@@ -20,7 +20,8 @@ class AdminsController extends Controller
      */
     public function index()
     {
-        $admins = Admin::select('id', 'name', 'age', 'email', 'department_id', 'file_path', 'created_at')->get();
+        $admins = Admin::select('id', 'name', 'age', 'email', 'department_id', 'file_path', 'created_at')
+        ->paginate(4);
 
         return view('admin.index', compact('admins'));
     }

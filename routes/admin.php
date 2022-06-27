@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\OwnersController;
+use App\Http\Controllers\Admin\AdminCsvController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -42,6 +43,11 @@ Route::prefix('expired-admin')->middleware('auth:admin')->group(function(){
     Route::post('destroy/{admin}', [AdminsController::class, 'expiredAdminDestroy'])->name('expired-admin.destroy');
 });
 
+Route::get('csvdownload', [AdminCsvController::class, 'csvdownload'])->middleware('auth:admin')->name('csvDownLoad');
+
+Route::post('csvupload', [AdminCsvController::class, 'csvupload'])->middleware('auth:admin')->name('admin_csv_upload');
+
+
 //ownersContent
 Route::resource('owners', OwnersController::class)
 ->middleware('auth:admin');
@@ -51,6 +57,12 @@ Route::prefix('expired-owners')->middleware('auth:admin')->group(function(){
     Route::post('restore/{owner}', [OwnersController::class, 'expiredOwnersRestore'])->name('expired-owners.restore');
     Route::post('destroy/{owner}', [OwnersController::class, 'expiredOwnersDestroy'])->name('expired-owners.destroy');
 });
+
+
+
+
+
+
 
 
 

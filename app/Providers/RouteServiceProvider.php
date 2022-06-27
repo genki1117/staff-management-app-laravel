@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/';
     public const OWNER_HOME = '/owner/owners'; //追記
-    public const ADMIN_HOME = '/admin/'; //追記
+    public const ADMIN_HOME = '/admin/admin'; //追記
 
 
     /**

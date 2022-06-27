@@ -2,5 +2,11 @@
 /・AdminsContoller validation constructにmiddleware
 /・css修正
 /・画像アップロード実装
-・Admin/OwnersContoller作成
+/・Admin/OwnersContoller作成
     各機能実装。
+
+.Ownre/OwnerController作成
+    各機能実装。
+
+.csv機能実装
+.メール機能実装
