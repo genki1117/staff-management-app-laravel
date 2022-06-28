@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use SplFileObject;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\CsvUploadRequest;
 
 class AdminCsvController extends Controller
 {
@@ -55,7 +56,7 @@ class AdminCsvController extends Controller
 
     }
 
-    public function csvupload(Request $request)
+    public function csvupload(CsvUploadRequest $request)
     {
         $uploaded_file = $request->file('csvfile');
         $file_path = $request->file('csvfile')->path($uploaded_file);
@@ -63,6 +64,8 @@ class AdminCsvController extends Controller
 
         $file = new SplFileObject($file_path);
         $file->setFlags(SplFileObject::READ_CSV | SplFileObject::READ_AHEAD | SplFileObject::SKIP_EMPTY | SplFileObject::DROP_NEW_LINE);
+
+        $array = [];
 
         $row_count = 1;
 
@@ -82,18 +85,49 @@ class AdminCsvController extends Controller
                     $created_at = null;
                 }
 
-
-                Admin::insert(array(
+                $csvimport_array = [
                     'name' => $name,
                     'age' => $age,
                     'email' => $email,
                     'department_id' => $department_id,
                     'password' => Hash::make($password),
                     'created_at' => $created_at
-                ));
+                ];
+
+                //$array配列に追加
+                array_push($array, $csvimport_array);
+
+                // Admin::insert(array(
+                //     'name' => $name,
+                //     'age' => $age,
+                //     'email' => $email,
+                //     'department_id' => $department_id,
+                //     'password' => Hash::make($password),
+                //     'created_at' => $created_at
+                // ));
             }
             $row_count++;
         }
+
+        //追加した配列の数をカウント
+        $array_count = count($array);
+
+        if ($array_count < 4) {
+
+            Admin::insert($array);
+
+        } else {
+
+            $array_partial = array_chunk($array, 4);
+
+            $array_partial_count = count($array_partial);
+
+            for ($i = 0; $i <= $array_partial_count - 1; $i++) {
+
+                Admin::insert($array_partial[$i]);
+            }
+        }
+
         return redirect()->route('admin.admin.index');
     }
 }
