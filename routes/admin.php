@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\OwnersController;
 use App\Http\Controllers\Admin\AdminCsvController;
+use App\Http\Controllers\Admin\AdminSendMailController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -37,15 +38,24 @@ Route::get('/dashboard', function () {
 Route::resource('admin', AdminsController::class)
 ->middleware('auth:admin');
 
+//admin_expired
 Route::prefix('expired-admin')->middleware('auth:admin')->group(function(){
     Route::get('index', [AdminsController::class, 'expiredAdminIndex'])->name('expired-admin.index');
     Route::post('restore/{admin}', [AdminsController::class, 'expiredAdminRestore'])->name('expired-admin.restore');
     Route::post('destroy/{admin}', [AdminsController::class, 'expiredAdminDestroy'])->name('expired-admin.destroy');
 });
 
+//admin_csv
 Route::get('csvdownload', [AdminCsvController::class, 'csvdownload'])->middleware('auth:admin')->name('csvDownLoad');
-
 Route::post('csvupload', [AdminCsvController::class, 'csvupload'])->middleware('auth:admin')->name('admin_csv_upload');
+
+//admin_mail
+Route::get('admin_create_mail/{id}', [AdminSendMailController::class, 'create'])
+->middleware('auth:admin')
+->name('admin_create_mail');
+
+
+
 
 
 //ownersContent

@@ -38,7 +38,8 @@
                                     <div class="p-2 mx-auto">
                                         <div class="relative">
                                             <label for="email" class="leading-7 text-sm text-gray-600">メールアドレス</label>
-                                            <p class="text-lg font-semibold">{{ $admin->email }}</p>
+                                            <p class="text-lg font-semibold"><a href="{{ route('admin.admin_create_mail', $admin->id) }}">{{ $admin->email }}</a></p>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="p-2 mx-auto">
@@ -49,6 +50,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="mt-12 p-2 w-full flex justify-around">
                                 <button type="button" onclick="location.href='{{ route('admin.admin.index') }}'" class="bg-gray-300 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">戻る</button>
                                 <button type="button" onclick="location.href='{{ route('admin.admin.edit', $admin->id) }}'" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</button>

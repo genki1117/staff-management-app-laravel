@@ -58,22 +58,25 @@ class AdminCsvController extends Controller
 
     public function csvupload(CsvUploadRequest $request)
     {
-        $uploaded_file = $request->file('csvfile');
-        $file_path = $request->file('csvfile')->path($uploaded_file);
+
+        // Admin::truncate(); // 全件削除
+
+        $uploaded_file = $request->file('csvfile'); //fileを取得
+        $file_path = $request->file('csvfile')->path($uploaded_file); //fileの絶対パスを取得
 
 
-        $file = new SplFileObject($file_path);
+        $file = new SplFileObject($file_path); // SplFileObjectをインスタンス化
         $file->setFlags(SplFileObject::READ_CSV | SplFileObject::READ_AHEAD | SplFileObject::SKIP_EMPTY | SplFileObject::DROP_NEW_LINE);
 
-        $array = [];
+        $array = []; // バルクインサートの為の配列を作成
 
         $row_count = 1;
 
         foreach ($file as $row) {
 
-            if ($row === [null]) continue;
+            if ($row === [null]) continue; // 最終行が空の場合の対策
 
-            if ($row_count > 1)
+            if ($row_count > 1) // 1行目のヘッダーは取り込まない
             {
                 $name = mb_convert_encoding($row[0], 'utf-8', 'SJIS');
                 $age = mb_convert_encoding($row[1], 'utf-8', 'SJIS');
@@ -109,9 +112,11 @@ class AdminCsvController extends Controller
             $row_count++;
         }
 
+        // バルクインサート
         //追加した配列の数をカウント
         $array_count = count($array);
 
+        //この場合だと4件未満だと普通のインサート
         if ($array_count < 4) {
 
             Admin::insert($array);
