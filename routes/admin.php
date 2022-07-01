@@ -54,6 +54,14 @@ Route::get('admin_create_mail/{id}', [AdminSendMailController::class, 'create'])
 ->middleware('auth:admin')
 ->name('admin_create_mail');
 
+Route::post('admin_confirm-mail', [AdminSendMailController::class, 'confirm'])
+->middleware('auth:admin')
+->name('admin_confirm_mail');
+
+Route::post('admin_send_mail', [AdminSendMailController::class, 'send'])
+->middleware('auth:admin')
+->name('admin_send_mail');
+
 
 
 
