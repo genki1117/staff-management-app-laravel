@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminSendMail;
 
 class AdminSendMailController extends Controller
 {
@@ -27,6 +29,13 @@ class AdminSendMailController extends Controller
 
     public function send(Request $request)
     {
-        dd($request);
+        $from = $request->from;
+        $to = $request->to;
+        $subject = $request->subject;
+        $content = $request->content;
+
+        Mail::to($to)->send(new AdminSendMail($content,$subject));
+
+
     }
 }
