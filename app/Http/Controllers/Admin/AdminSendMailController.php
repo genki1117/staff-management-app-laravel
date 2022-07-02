@@ -36,6 +36,8 @@ class AdminSendMailController extends Controller
 
         Mail::to($to)->send(new AdminSendMail($content,$subject));
 
+        return redirect()->route('admin.admin.index');
+
 
     }
 }
