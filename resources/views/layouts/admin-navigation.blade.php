@@ -33,11 +33,11 @@
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('admin.owners.create')" :active="request()->routeIs('admin.owners.create')">
-                        オーナー一覧
+                        オーナー登録
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('admin.expired-owners.index')" :active="request()->routeIs('admin.owners.create')">
+                    <x-nav-link :href="route('admin.expired-owners.index')" :active="request()->routeIs('admin.expired-owners.index')">
                         削除済みオーナー一覧
                     </x-nav-link>
                 </div>
@@ -110,6 +110,11 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('admin.owners.create')" :active="request()->routeIs('admin.owners.create')">
                 オーナー登録
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('admin.expired-owners.index')" :active="request()->routeIs('admin.expired-owners.index')">
+                削除済みオーナー一覧
             </x-responsive-nav-link>
         </div>
 

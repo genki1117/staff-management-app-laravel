@@ -8,6 +8,7 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminSendMail;
+use App\Http\Requests\MailRequest;
 
 class AdminSendMailController extends Controller
 {
@@ -18,7 +19,7 @@ class AdminSendMailController extends Controller
         return view('admin.emails.create_mail', compact('admin', 'login_admin'));
     }
 
-    public function confirm(Request $request)
+    public function confirm(MailRequest $request)
     {
         $from = $request->from;
         $to = $request->to;
@@ -27,7 +28,7 @@ class AdminSendMailController extends Controller
         return view('admin.emails.confirm_mail', compact('from', 'to', 'subject', 'content'));
     }
 
-    public function send(Request $request)
+    public function send(MailRequest $request)
     {
         $from = $request->from;
         $to = $request->to;
@@ -36,7 +37,7 @@ class AdminSendMailController extends Controller
 
         Mail::to($to)->send(new AdminSendMail($content,$subject));
 
-        return redirect()->route('admin.admin.index');
+        return redirect()->route('admin.admin.index')->with('successMessage', 'メールを送信しました');
 
 
     }

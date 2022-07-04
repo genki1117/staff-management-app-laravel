@@ -18,6 +18,8 @@
                                         新規登録
                                     </button>
                                 </div>
+                                {{-- セッションメッセージ --}}
+                                <x-flash-message/>
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                     <tr>
