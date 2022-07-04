@@ -12,8 +12,23 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('owner.owners.index')" :active="request()->routeIs('owner.owners.index')">
+                        オーナー一覧
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('owner.owners.create')" :active="request()->routeIs('owner.owners.create')">
+                        オーナー登録
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('owner.expired-owners.index')" :active="request()->routeIs('owner.expired-owners.index')">
+                        削除済みオーナー一覧
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('owner.owners.index')" :active="request()->routeIs('owner.owners.index')">
+                        ユーザー一覧
                     </x-nav-link>
                 </div>
             </div>

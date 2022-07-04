@@ -30,9 +30,19 @@ Route::get('/dashboard', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owners'])->name('dashboard');
 
-
+// resource
 Route::resource('owners', OwnersController::class)
 ->middleware('auth:owners');
+
+
+// owner_expired
+Route::prefix('expired-owner')->middleware('auth:owners')->group(function () {
+    Route::get('index', [OwnersController::class, 'expiredOwnerIndex'])->name('expired-owners.index');
+    Route::post('restore/{owner}', [OwnersController::class, 'expiredOwnerRestore'])->name('expired-owners.restore');
+    Route::post('destroy/{owner}', [OwnersController::class, 'expiredOwnerDestroy'])->name('expired-owners.destroy');
+});
+
+
 
 
 

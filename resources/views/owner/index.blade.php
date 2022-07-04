@@ -18,6 +18,7 @@
                                         新規登録
                                     </button>
                                 </div>
+                                <x-flash-message/>
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                     <tr>
@@ -55,6 +56,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {{ $owners->links() }}
                             </div>
                         </div>
                     </section>
