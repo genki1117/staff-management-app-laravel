@@ -9,6 +9,7 @@ use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\OwnersController;
+use App\Http\Controllers\Owner\OwnerCsvController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,10 @@ Route::prefix('expired-owner')->middleware('auth:owners')->group(function () {
     Route::post('restore/{owner}', [OwnersController::class, 'expiredOwnerRestore'])->name('expired-owners.restore');
     Route::post('destroy/{owner}', [OwnersController::class, 'expiredOwnerDestroy'])->name('expired-owners.destroy');
 });
+
+// owner_csv
+Route::get('csvdownload', [OwnerCsvController::class, 'ownerCsvDownload'])->middleware('auth:owners')->name('owner_csv_download');
+Route::post('csvupload', [OwnerCsvController::class, 'ownerCsvUpload'])->middleware('auth:owners')->name('owner_csv_upload');
 
 
 

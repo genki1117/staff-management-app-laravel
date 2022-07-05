@@ -74,7 +74,7 @@
                             </div>
                             <div class="lg:w-1/2 md:w-2/3 mx-auto mt-12">
                                 <hr>
-                                <form action="{{ route('admin.admin_csv_upload') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('owner.owner_csv_upload') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <label for="csvfile" class="leading-7 text-sm text-gray-600">csvアップロード</label>
                                     <div class="p-2 w-full flex justify-around mt-4">
