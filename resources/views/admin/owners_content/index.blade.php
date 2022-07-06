@@ -55,7 +55,12 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {{ $owners->links() }}
                             </div>
+                        </div>
+                        <div class="mt-8">
+                            <label for="csvdownload"><i class="fa-solid fa-download"></i></label>
+                            <a href="{{ route('admin.owner_csv_download') }}" id="csvdownload" >csvダウンロード</a>
                         </div>
                     </section>
                 </div>

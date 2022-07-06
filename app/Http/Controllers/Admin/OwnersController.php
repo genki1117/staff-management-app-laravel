@@ -20,7 +20,8 @@ class OwnersController extends Controller
      */
     public function index()
     {
-        $owners = Owner::select('id', 'name', 'age', 'email', 'department_id', 'file_path')->get();
+        $owners = Owner::select('id', 'name', 'age', 'email', 'department_id', 'file_path')
+        ->paginate(4);
 
         return view('admin.owners_content.index', compact('owners'));
     }

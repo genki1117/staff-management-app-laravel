@@ -11,7 +11,7 @@ use App\Http\Requests\CsvUploadRequest;
 
 class AdminCsvController extends Controller
 {
-    public function csvdownload()
+    public function adminCsvDownLoad()
     {
         $headers = [
             'Content-type' => 'text/csv',
@@ -56,7 +56,7 @@ class AdminCsvController extends Controller
 
     }
 
-    public function csvupload(CsvUploadRequest $request)
+    public function adminCsvUpLoad(CsvUploadRequest $request)
     {
 
         // Admin::truncate(); // 全件削除

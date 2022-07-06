@@ -62,7 +62,7 @@
                         </div>
                         <div class="mt-8">
                             <label for="csvdownload"><i class="fa-solid fa-download"></i></label>
-                            <a href="{{ route('admin.csvDownLoad') }}" id="csvdownload" >csvダウンロード</a>
+                            <a href="{{ route('admin.admin_csv_download') }}" id="csvdownload" >csvダウンロード</a>
                         </div>
                     </section>
                 </div>

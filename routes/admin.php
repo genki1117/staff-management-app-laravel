@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\OwnersController;
 use App\Http\Controllers\Admin\AdminCsvController;
 use App\Http\Controllers\Admin\AdminSendMailController;
+use App\Http\Controllers\Admin\OwnerCsvController;
+use App\Http\Controllers\Admin\OwnerSendMailController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,22 +48,39 @@ Route::prefix('expired-admin')->middleware('auth:admin')->group(function(){
 });
 
 //admin_csv
-Route::get('csvdownload', [AdminCsvController::class, 'csvdownload'])->middleware('auth:admin')->name('csvDownLoad');
-Route::post('csvupload', [AdminCsvController::class, 'csvupload'])->middleware('auth:admin')->name('admin_csv_upload');
+Route::get('admin-csvdownload', [AdminCsvController::class, 'adminCsvDownLoad'])->middleware('auth:admin')->name('admin_csv_download');
+Route::post('admin-csvupload', [AdminCsvController::class, 'adminCsvUpLoad'])->middleware('auth:admin')->name('admin_csv_upload');
+
+//owner_csv
+Route::get('owner-csvdownload', [OwnerCsvController::class, 'ownerCsvDownLoad'])->middleware('auth:admin')->name('owner_csv_download');
+Route::post('owner-csvupload', [OwnerCsvController::class, 'ownerCsvUpLoad'])->middleware('auth:admin')->name('owner_csv_upload');
+
 
 //admin_mail
-Route::get('admin_create_mail/{id}', [AdminSendMailController::class, 'create'])
+Route::get('admin-create-mail/{id}', [AdminSendMailController::class, 'create'])
 ->middleware('auth:admin')
 ->name('admin_create_mail');
 
-Route::post('admin_confirm-mail', [AdminSendMailController::class, 'confirm'])
+Route::post('admin-confirm-mail', [AdminSendMailController::class, 'confirm'])
 ->middleware('auth:admin')
 ->name('admin_confirm_mail');
 
-Route::post('admin_send_mail', [AdminSendMailController::class, 'send'])
+Route::post('admin-send-mail', [AdminSendMailController::class, 'send'])
 ->middleware('auth:admin')
 ->name('admin_send_mail');
 
+//owner_mail
+Route::get('owner-create-mail/{id}', [OwnerSendMailController::class, 'create'])
+    ->middleware('auth:admin')
+    ->name('owner_create_mail');
+
+Route::post('owner-confirm-mail', [OwnerSendMailController::class, 'confirm'])
+    ->middleware('auth:admin')
+    ->name('owner_confirm_mail');
+
+Route::post('owner-send-mail', [OwnerSendMailController::class, 'send'])
+    ->middleware('auth:admin')
+    ->name('owner_send_mail');
 
 
 

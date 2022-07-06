@@ -102,7 +102,7 @@ class OwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UploadImageRequest $request, $id)
     {
         $owner = Owner::findOrFail($id);
         $image_file = $request->file('image');

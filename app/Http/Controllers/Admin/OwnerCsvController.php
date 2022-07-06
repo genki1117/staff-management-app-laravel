@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Owner;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use App\Http\Requests\CsvUploadRequest;
 
 class OwnerCsvController extends Controller
 {
-    public function ownerCsvDownload()
+    public function ownerCsvDownLoad()
     {
         $headers = [
             'Content-type' => 'text/csv',
@@ -56,6 +56,7 @@ class OwnerCsvController extends Controller
 
     public function ownerCsvUpLoad(CsvUploadRequest $request)
     {
+
         // Owner::truncate(); // 全件削除
 
         $uploaded_file = $request->file('csvfile'); //fileを取得
@@ -129,6 +130,6 @@ class OwnerCsvController extends Controller
             }
         }
 
-        return redirect()->route('owner.owners.index');
+        return redirect()->route('admin.admin.index');
     }
 }
