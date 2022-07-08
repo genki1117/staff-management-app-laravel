@@ -12,7 +12,7 @@
                     <section class="text-gray-600 body-font relative">
                         <div class="container px-5 mx-auto">
                             <div class="flex flex-col text-center w-full mb-12">
-                                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">管理者詳細</h1>
+                                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">オーナー詳細</h1>
                             </div>
                             <div class="flex justify-between mt-12 lg:w-1/2 md:w-2/3 mx-auto">
                                 <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">

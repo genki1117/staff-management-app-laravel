@@ -7,12 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AdminSendMail extends Mailable
+class OwnerSendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject;
-    public $content;
     /**
      * Create a new message instance.
      *
@@ -33,7 +31,7 @@ class AdminSendMail extends Mailable
     {
         return $this
         ->subject($this->subject)
-        ->view('admin.emails.send_mail_format')
+        ->view('admin.owner_content.email.send_mail_format')
         ->with(['content' => $this->content]);
     }
 }
