@@ -47,6 +47,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {{ $expired_admins->links() }}
                             </div>
                         </div>
                     </section>
