@@ -59,7 +59,8 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <!-- Authentication -->Ωut') }}">
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('admin.logout') }}">
                             @csrf
 
                             <x-dropdown-link :href="route('admin.logout')"

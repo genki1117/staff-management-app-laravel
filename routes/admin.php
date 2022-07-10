@@ -36,15 +36,26 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth:admin'])->name('dashboard');
 
-//AdminContent
+//AdminResource
 Route::resource('admin', AdminsController::class)
 ->middleware('auth:admin');
+
+//OwnersResource
+Route::resource('owners', OwnersController::class)
+    ->middleware('auth:admin');
 
 //admin_expired
 Route::prefix('expired-admin')->middleware('auth:admin')->group(function(){
     Route::get('index', [AdminsController::class, 'expiredAdminIndex'])->name('expired-admin.index');
     Route::post('restore/{admin}', [AdminsController::class, 'expiredAdminRestore'])->name('expired-admin.restore');
     Route::post('destroy/{admin}', [AdminsController::class, 'expiredAdminDestroy'])->name('expired-admin.destroy');
+});
+
+// owner_expired
+Route::prefix('expired-owners')->middleware('auth:admin')->group(function () {
+    Route::get('index', [OwnersController::class, 'expiredOwnersIndex'])->name('expired-owners.index');
+    Route::post('restore/{owner}', [OwnersController::class, 'expiredOwnersRestore'])->name('expired-owners.restore');
+    Route::post('destroy/{owner}', [OwnersController::class, 'expiredOwnersDestroy'])->name('expired-owners.destroy');
 });
 
 //admin_csv
@@ -85,15 +96,7 @@ Route::post('owner-send-mail', [OwnerSendMailController::class, 'send'])
 
 
 
-//ownersContent
-Route::resource('owners', OwnersController::class)
-->middleware('auth:admin');
 
-Route::prefix('expired-owners')->middleware('auth:admin')->group(function(){
-    Route::get('index', [OwnersController::class, 'expiredOwnersIndex'])->name('expired-owners.index');
-    Route::post('restore/{owner}', [OwnersController::class, 'expiredOwnersRestore'])->name('expired-owners.restore');
-    Route::post('destroy/{owner}', [OwnersController::class, 'expiredOwnersDestroy'])->name('expired-owners.destroy');
-});
 
 
 

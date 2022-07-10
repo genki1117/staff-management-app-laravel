@@ -10,6 +10,7 @@ use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\OwnersController;
 use App\Http\Controllers\Owner\OwnerCsvController;
+use App\Http\Controllers\Owner\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,9 +32,14 @@ Route::get('/dashboard', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owners'])->name('dashboard');
 
-// resource
+// Ownerresource
 Route::resource('owners', OwnersController::class)
 ->middleware('auth:owners');
+
+// Userresource
+Route::resource('users', UsersController::class)
+->middleware('auth:owners');
+
 
 
 // owner_expired
@@ -46,6 +52,9 @@ Route::prefix('expired-owner')->middleware('auth:owners')->group(function () {
 // owner_csv
 Route::get('csvdownload', [OwnerCsvController::class, 'ownerCsvDownload'])->middleware('auth:owners')->name('owner_csv_download');
 Route::post('csvupload', [OwnerCsvController::class, 'ownerCsvUpload'])->middleware('auth:owners')->name('owner_csv_upload');
+
+//user_csv
+
 
 
 

@@ -7,6 +7,7 @@
 
 .Ownre/OwnerController作成
     各機能実装。
+    メール機能
 
 .csv機能実装
     /バリデーション

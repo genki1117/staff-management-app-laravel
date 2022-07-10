@@ -27,7 +27,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('owner.owners.index')" :active="request()->routeIs('owner.owners.index')">
+                    <x-nav-link :href="route('owner.users.index')" :active="request()->routeIs('owner.owners.index')">
                         ユーザー一覧
                     </x-nav-link>
                 </div>
@@ -78,8 +78,17 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route('owner.owners.index')" :active="request()->routeIs('oowner.owners.index')">
+                オーナー一覧
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('owner.owners.create')" :active="request()->routeIs('owner.owners.create')">
+                オーナー登録
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('owner.expired-owners.index')" :active="request()->routeIs('owner.expired-owners.index')">
+                削除済みオーナー一覧
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('owner.expired-owners.index')" :active="request()->routeIs('owner.expired-owners.index')">
+                削除済みオーナー一覧
             </x-responsive-nav-link>
         </div>
 

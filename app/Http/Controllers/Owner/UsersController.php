@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Owner;
+use App\Models\User;
 use App\Models\Department;
 use App\Http\Requests\UploadImageRequest;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class OwnersController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,8 @@ class OwnersController extends Controller
      */
     public function index()
     {
-        $owners = Owner::select('id', 'name', 'age', 'email', 'department_id', 'file_path')
-        ->paginate(4);
-        return view('owner.index', compact('owners'));
+        $users = User::select('id', 'name', 'age', 'email', 'department_id')->get();
+        return view('owner.users_content.index', compact('users'));
     }
 
     /**
@@ -33,7 +32,7 @@ class OwnersController extends Controller
     public function create()
     {
         $departments = Department::all();
-        return view('owner.create', compact('departments'));
+        return view('owner.users_content.create', compact('departments'));
     }
 
     /**
@@ -51,12 +50,12 @@ class OwnersController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'age' => ['required'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:owners'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'department_id' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        Owner::create([
+        User::create([
             'name' => $request->name,
             'age' => $request->age,
             'email' => $request->email,
@@ -65,8 +64,7 @@ class OwnersController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('owner.owners.index')->with('successMessage', 'オーナー登録が完了しました');
-
+        return redirect()->route('owner.users.index')->with('successMessage', 'ユーザー登録が完了しました');
     }
 
     /**
@@ -77,8 +75,8 @@ class OwnersController extends Controller
      */
     public function show($id)
     {
-        $owner = Owner::findOrFail($id);
-        return view('owner.show', compact('owner'));
+        $user = User::findOrFail($id);
+        return view('owner.users_content.show', compact('user'));
     }
 
     /**
@@ -89,10 +87,9 @@ class OwnersController extends Controller
      */
     public function edit($id)
     {
-        $owner = Owner::findOrFail($id);
+        $user = User::findOrFail($id);
         $departments = Department::all();
-
-        return view('owner.edit', compact('owner', 'departments'));
+        return view('owner.users_content.edit', compact('user', 'departments'));
     }
 
     /**
@@ -102,9 +99,10 @@ class OwnersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UploadImageRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $owner = Owner::findOrFail($id);
+        $user = User::findOrFail($id);
+
         $image_file = $request->file('image');
         $file_path = 'app/public/';
         $file_name_store = ImageService::upload($image_file, $file_path);
@@ -112,20 +110,21 @@ class OwnersController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'age' => 'required',
-            'email' => 'required|email|unique:owners,email,' . $owner->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'department_id' => 'required',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $owner->name = $request->name;
-        $owner->age = $request->age;
-        $owner->department_id = $request->department_id;
-        $owner->file_path = $file_name_store;
-        $owner->password = Hash::make($request->password);
-        $owner->save();
+        $user->name = $request->name;
+        $user->age = $request->age;
+        $user->email = $request->email;
+        $user->department_id = $request->department_id;
+        $user->file_path = $file_name_store;
+        $user->password = Hash::make($request->password);
+        $user->save();
 
-        return redirect()->route('owner.owners.index')->with('successMessage', 'オーナー情報を編集しました');
-        }
+        return redirect()->route('owner.users.index')->with('successMessage', 'ユーザー情報を更新しました。');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -135,26 +134,6 @@ class OwnersController extends Controller
      */
     public function destroy($id)
     {
-        Owner::findOrFail($id)->delete();
-
-        return redirect()->route('owner.owners.index')->with('successMessage', 'オーナー情報を削除しました。');
-    }
-
-    public function expiredOwnerIndex()
-    {
-        $expired_owners = Owner::onlyTrashed()->paginate(5);
-        return view('owner.expired_owners_index', compact('expired_owners'));
-    }
-
-    public function expiredOwnerRestore($id)
-    {
-        Owner::onlyTrashed()->restore();
-        return redirect()->route('owner.owners.index')->with('successMessage', 'オーナー情報を修正しました。');
-    }
-
-    public function expiredOwnerDestroy($id)
-    {
-        Owner::onlyTrashed()->forceDelete();
-        return redirect()->route('owner.owners.index')->with('succesMessage', 'オーナー情報を削除しました。');
+        //
     }
 }

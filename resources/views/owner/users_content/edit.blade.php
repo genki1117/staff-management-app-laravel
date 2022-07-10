@@ -16,26 +16,26 @@
                             </div>
                             <div class="lg:w-1/2 md:w-2/3 mx-auto">
                                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                                <form method="post" action="{{ route('owner.owners.update', $owner->id) }}" enctype="multipart/form-data">
+                                <form method="post" action="{{ route('owner.users.update', $user->id) }}" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="-m-2">
                                         <div class="p-2 w-1/2 mx-auto">
                                             <div class="relative">
                                                 <label for="name" class="leading-7 text-sm text-gray-600">氏名</label>
-                                                <input type="text" id="name" name="name" value="{{ $owner->name }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                <input type="text" id="name" name="name" value="{{ $user->name }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             </div>
                                         </div>
                                         <div class="p-2 w-1/2 mx-auto">
                                             <div class="relative">
                                                 <label for="age" class="leading-7 text-sm text-gray-600">年齢</label>
-                                                <input type="number" id="age" name="age" value="{{ $owner->age }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                <input type="number" id="age" name="age" value="{{ $user->age }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             </div>
                                         </div>
                                         <div class="p-2 w-1/2 mx-auto">
                                             <div class="relative">
                                                 <label for="email" class="leading-7 text-sm text-gray-600">メールアドレス</label>
-                                                <input type="email" id="email" name="email" value="{{ $owner->email }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                <input type="email" id="email" name="email" value="{{ $user->email }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             </div>
                                         </div>
                                         <div class="p-2 w-1/2 mx-auto">
@@ -43,7 +43,7 @@
                                                 <label for="department_id" class="leading-7 text-sm text-gray-600">部署</label>
                                                 <select name="department_id" id="department_id" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                     @foreach ($departments as $department)
-                                                        <option value="{{ $department->id }}"  @if($owner->department_id == $department->id) selected @endif>{{ $department->name }}</option>
+                                                        <option value="{{ $department->id }}"  @if($user->department_id == $department->id) selected @endif>{{ $department->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
