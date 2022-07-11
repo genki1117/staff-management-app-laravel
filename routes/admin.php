@@ -68,15 +68,18 @@ Route::post('owner-csvupload', [OwnerCsvController::class, 'ownerCsvUpLoad'])->m
 
 
 //admin_mail
-Route::get('admin-create-mail/{id}', [AdminSendMailController::class, 'create'])
+// 修正
+// URL mail-admin
+// prefix
+Route::get('admin-mail-create/{id}', [AdminSendMailController::class, 'create'])
 ->middleware('auth:admin')
 ->name('admin_create_mail');
 
-Route::post('admin-confirm-mail', [AdminSendMailController::class, 'confirm'])
+Route::post('admin-mail-confirm', [AdminSendMailController::class, 'confirm'])
 ->middleware('auth:admin')
 ->name('admin_confirm_mail');
 
-Route::post('admin-send-mail', [AdminSendMailController::class, 'send'])
+Route::post('admin-mail-send', [AdminSendMailController::class, 'send'])
 ->middleware('auth:admin')
 ->name('admin_send_mail');
 

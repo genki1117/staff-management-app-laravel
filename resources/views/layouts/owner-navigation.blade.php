@@ -27,8 +27,18 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('owner.users.index')" :active="request()->routeIs('owner.owners.index')">
+                    <x-nav-link :href="route('owner.users.index')" :active="request()->routeIs('owner.users.index')">
                         ユーザー一覧
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('owner.users.create')" :active="request()->routeIs('owner.users.create')">
+                        ユーザー一覧
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('owner.expired-users.index')" :active="request()->routeIs('owner.expired-users.index')">
+                        削除済みユーザー
                     </x-nav-link>
                 </div>
             </div>

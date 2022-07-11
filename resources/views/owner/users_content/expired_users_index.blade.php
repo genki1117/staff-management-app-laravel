@@ -22,51 +22,59 @@
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                     <tr>
-                                        <th class="md:px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl"></th>
-                                        <th class="md:px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">氏名</th>
+                                        <th class="md:px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">氏名</th>
                                         <th class="md:px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">年齢</th>
                                         <th class="md:px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">メールアドレス</th>
                                         <th class="md:px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">部署</th>
                                         <th class="md:px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"></th>
+                                        <th class="md:px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($expired_users as $expired_user)
                                         <tr>
-                                        @if ($user->file_path == '')
+                                        <td class="md:px-4 py-3">{{ $expired_user->name }}</td>
+                                        <td class="md:px-4 py-3">{{ $expired_user->age }}</td>
+                                        <td class="md:px-4 py-3">{{ $expired_user->email }}</td>
+                                        <td class="md:px-4 py-3">{{ $expired_user->department->name }}</td>
+                                        <form id="restore_{{$expired_user->id}}" method="post" action="{{ route('owner.expired-users.restore',$expired_user->id) }}">
+                                            @csrf
                                             <td class="md:px-4 py-3">
-                                            <img src="{{asset('images/lion.jpg')}}" width="50px" height="50px" alt="">
-                                        </td>
-                                        @else
-                                            <td class="px-4 py-3">
-                                            <img src="{{asset('storage/' . $user->file_path)}}" width="50px" height="50px" alt="">
-                                        </td>
-                                        @endif
-                                        <td class="md:px-4 py-3">{{ $user->name }}</td>
-                                        <td class="md:px-4 py-3">{{ $user->age }}</td>
-                                        <td class="md:px-4 py-3">{{ $user->email }}</td>
-                                        <td class="md:px-4 py-3">{{ $user->department->name }}</td>
-                                        <td class="md:px-4 py-3">
-                                            {{-- <a href="{{ route('admin.show', $admin->id) }}" class="btn btn-primary btn-sm">詳細</a> --}}
-                                            <button onclick="location.href='{{ route('owner.users.show', $user->id) }}'" class="text-white bg-indigo-400 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-500 rounded">
-                                                詳細
-                                            </button>
-                                        </td>
+                                                <a href="#" data-id="{{ $expired_user->id }}" onclick="restorePost(this)" class="text-white bg-blue-400 border-0 py-2 px-4 focus:outline-none hover:bg-blue-500 rounded">復元</a>
+                                            </td>
+                                        </form>
+                                        <form id="delete_{{$expired_user->id}}" method="post" action="{{ route('owner.expired-users.destroy',$expired_user->id) }}">
+                                            @csrf
+                                            <td class="md:px-4 py-3">
+                                                <a href="#" data-id="{{ $expired_user->id }}" onclick="deletePost(this)" class="text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded">削除</a>
+                                            </td>
+                                        </form>
                                     </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
-                                {{-- {{ $owners->links() }} --}}
+                                {{ $expired_users->links() }}
                             </div>
-                        </div>
-                        <div class="mt-8">
-                            <label for="csvdownload"><i class="fa-solid fa-download"></i></label>
-                            <a href="{{ route('owner.owner_csv_download') }}" id="csvdownload" >csvダウンロード</a>
                         </div>
                     </section>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function restorePost(e) {
+        'use strict';
+        if (confirm('本当に復元してもいいですか?')) {
+            document.getElementById('restore_' + e.dataset.id).submit();
+        }
+    }
+
+    function deletePost(e) {
+        'use strict';
+        if (confirm('本当に削除してもいいですか?')) {
+            document.getElementById('delete_' + e.dataset.id).submit();
+        }
+    }
+    </script>
 </x-app-layout>
 

@@ -38,10 +38,8 @@
                                     <div class="p-2 mx-auto">
                                         <div class="relative">
                                             <label for="email" class="leading-7 text-sm text-gray-600">メールアドレス</label>
-                                            <div class="flex">
-                                                <p class="text-lg font-semibold">{{ $owner->email }}</p>
-                                                <a href="{{ route('admin.admin_create_mail', $owner->id) }}"><i class="fa-solid fa-envelope pt-2 ml-2"></i></a>
-                                            </div>
+                                            <p class="text-lg font-semibold">{{ $owner->email }}</p>
+                                            <a href="{{ route('owner.owner_create_mail', $owner->id) }}"><i class="fa-solid fa-envelope pt-2 ml-2"></i></a>
                                         </div>
                                     </div>
                                     <div class="p-2 mx-auto">

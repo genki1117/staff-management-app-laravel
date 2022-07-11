@@ -140,21 +140,23 @@ class OwnersController extends Controller
         return redirect()->route('owner.owners.index')->with('successMessage', 'オーナー情報を削除しました。');
     }
 
+
+
     public function expiredOwnerIndex()
     {
-        $expired_owners = Owner::onlyTrashed()->paginate(5);
+        $expired_owners = Owner::onlyTrashed()->paginate(4);
         return view('owner.expired_owners_index', compact('expired_owners'));
     }
 
     public function expiredOwnerRestore($id)
     {
-        Owner::onlyTrashed()->restore();
+        Owner::onlyTrashed()->where('id', $id)->restore();
         return redirect()->route('owner.owners.index')->with('successMessage', 'オーナー情報を修正しました。');
     }
 
     public function expiredOwnerDestroy($id)
     {
-        Owner::onlyTrashed()->forceDelete();
+        Owner::onlyTrashed()->where('id', $id)->forceDelete();
         return redirect()->route('owner.owners.index')->with('succesMessage', 'オーナー情報を削除しました。');
     }
 }

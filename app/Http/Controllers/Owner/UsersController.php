@@ -20,7 +20,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::select('id', 'name', 'age', 'email', 'department_id')->get();
+        $users = User::select('id', 'name', 'age', 'email', 'department_id', 'file_path')->get();
         return view('owner.users_content.index', compact('users'));
     }
 
@@ -134,6 +134,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::findOrFail($id)->delete();
+        return redirect()->route('owner.users.index')->with('successMessage', 'ユーザー情報を削除しました。');
     }
 }
