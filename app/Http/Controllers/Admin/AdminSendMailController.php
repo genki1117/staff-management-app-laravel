@@ -34,6 +34,7 @@ class AdminSendMailController extends Controller
         $to = $request->to;
         $subject = $request->subject;
         $content = $request->content;
+        $template_view_path = 
 
         Mail::to($to)->send(new AdminSendMail($content,$subject));
 

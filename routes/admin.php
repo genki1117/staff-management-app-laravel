@@ -12,8 +12,10 @@ use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\OwnersController;
 use App\Http\Controllers\Admin\AdminCsvController;
 use App\Http\Controllers\Admin\AdminSendMailController;
+use App\Http\Controllers\Admin\AdminExpiredController;
 use App\Http\Controllers\Admin\OwnerCsvController;
 use App\Http\Controllers\Admin\OwnerSendMailController;
+use App\Http\Controllers\Admin\OwnerExpiredController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,16 +48,16 @@ Route::resource('owners', OwnersController::class)
 
 //admin_expired
 Route::prefix('expired-admin')->middleware('auth:admin')->group(function(){
-    Route::get('index', [AdminsController::class, 'expiredAdminIndex'])->name('expired-admin.index');
-    Route::post('restore/{admin}', [AdminsController::class, 'expiredAdminRestore'])->name('expired-admin.restore');
-    Route::post('destroy/{admin}', [AdminsController::class, 'expiredAdminDestroy'])->name('expired-admin.destroy');
+    Route::get('index', [AdminExpiredController::class, 'expiredAdminIndex'])->name('expired-admin.index');
+    Route::post('restore/{admin}', [AdminExpiredController::class, 'expiredAdminRestore'])->name('expired-admin.restore');
+    Route::post('destroy/{admin}', [AdminExpiredController::class, 'expiredAdminDestroy'])->name('expired-admin.destroy');
 });
 
 // owner_expired
 Route::prefix('expired-owners')->middleware('auth:admin')->group(function () {
-    Route::get('index', [OwnersController::class, 'expiredOwnersIndex'])->name('expired-owners.index');
-    Route::post('restore/{owner}', [OwnersController::class, 'expiredOwnersRestore'])->name('expired-owners.restore');
-    Route::post('destroy/{owner}', [OwnersController::class, 'expiredOwnersDestroy'])->name('expired-owners.destroy');
+    Route::get('index', [OwnerExpiredController::class, 'expiredOwnersIndex'])->name('expired-owners.index');
+    Route::post('restore/{owner}', [OwnerExpiredController::class, 'expiredOwnersRestore'])->name('expired-owners.restore');
+    Route::post('destroy/{owner}', [OwnerExpiredController::class, 'expiredOwnersDestroy'])->name('expired-owners.destroy');
 });
 
 //admin_csv

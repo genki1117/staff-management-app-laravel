@@ -68,6 +68,8 @@ Route::post('csvupload', [OwnerCsvController::class, 'ownerCsvUpload'])->middlew
 //owner_mail
 Route::prefix('mail-owner')->middleware('auth:owners')->group(function () {
     Route::get('create/{id}', [OwnerSendMailController::class, 'create'])->name('owner_create_mail');
+    Route::post('confirm',[OwnerSendMailController::class, 'confirm'])->name('owner_confirm_mail');
+    Route::post('send', [OwnerSendMailController::class, 'send'])->name('owner_send_mail');
 });
 
 

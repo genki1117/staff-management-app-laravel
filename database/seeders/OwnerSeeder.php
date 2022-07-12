@@ -45,6 +45,13 @@ class OwnerSeeder extends Seeder
                     'email' => 'owner_test4@test.com',
                     'department_id' => 1,
                     'password' => Hash::make('password123')
+                ],
+                [
+                    'name' => 'owner_test5',
+                    'age' => 66,
+                    'email' => 'owner_test5@test.com',
+                    'department_id' => 1,
+                    'password' => Hash::make('password123')
                 ]
             ]
         );

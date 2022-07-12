@@ -31,7 +31,7 @@ class OwnerSendMail extends Mailable
     {
         return $this
         ->subject($this->subject)
-        ->view('admin.owner_content.email.send_mail_format')
+        ->view('mails_template.template_1')
         ->with(['content' => $this->content]);
     }
 }

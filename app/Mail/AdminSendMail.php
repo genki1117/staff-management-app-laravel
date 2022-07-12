@@ -33,7 +33,7 @@ class AdminSendMail extends Mailable
     {
         return $this
         ->subject($this->subject)
-        ->view('admin.emails.send_mail_format')
+        ->view('mails_template.template_1')
         ->with(['content' => $this->content]);
     }
 }
