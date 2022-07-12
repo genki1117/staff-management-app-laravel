@@ -20,7 +20,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::select('id', 'name', 'age', 'email', 'department_id', 'file_path')->get();
+        $users = User::select('id', 'name', 'age', 'email', 'department_id', 'file_path')
+        ->paginate(4);
         return view('owner.users_content.index', compact('users'));
     }
 

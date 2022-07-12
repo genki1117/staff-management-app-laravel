@@ -56,7 +56,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                {{-- {{ $owners->links() }} --}}
+                                {{ $users->links() }}
                             </div>
                         </div>
                         <div class="mt-8">

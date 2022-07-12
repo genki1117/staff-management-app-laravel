@@ -17,12 +17,12 @@ class OwnerExpiredController extends Controller
     public function expiredOwnersRestore($id)
     {
         Owner::onlyTrashed()->where('id', $id)->restore();
-        return redirect()->route('admin.owners.index');
+        return redirect()->route('admin.expired-owners.index')->with('successMessage', 'オーナー情報を復元しました。');
     }
 
     public function expiredOwnersDestroy($id)
     {
         Owner::onlyTrashed()->where('id', $id)->forceDelete();
-        return redirect()->route('admin.owners.index');
+        return redirect()->route('admin.expired-owners.index')->with('successMessage', 'オーナー情報を削除しました。');
     }
 }
