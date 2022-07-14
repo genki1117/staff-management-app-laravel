@@ -6,8 +6,6 @@
     各機能実装。
 
 .Ownre/OwnerController作成
-    各機能実装。
-    メール機能
 
 .csv機能実装
     /バリデーション
@@ -19,9 +17,17 @@
     /フラッシュメッセージ
     /リンク修正
     /メモ
+./github整理
+/.adminフラッシュメッセージ設置
+
+
+Owner
+owner/expired
+user/csv
+user/sendmail
 
 .日本語化
-./github整理
 .検索機能
-.adminフラッシュメッセージ設置
 .logo、logoリンク修正
+
+

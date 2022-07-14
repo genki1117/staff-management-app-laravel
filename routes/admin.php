@@ -1,13 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\Admin\Auth\NewPasswordController;
-use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Admin\Auth\RegisteredUserController;
-use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\OwnersController;
 use App\Http\Controllers\Admin\AdminCsvController;
@@ -30,13 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('admin.welcome');
-// });
-
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth:admin'])->name('dashboard');
 
 //AdminResource
 Route::resource('admin', AdminsController::class)
@@ -61,99 +46,29 @@ Route::prefix('expired-owners')->middleware('auth:admin')->group(function () {
 });
 
 //admin_csv
-Route::get('admin-csvdownload', [AdminCsvController::class, 'adminCsvDownLoad'])->middleware('auth:admin')->name('admin_csv_download');
-Route::post('admin-csvupload', [AdminCsvController::class, 'adminCsvUpLoad'])->middleware('auth:admin')->name('admin_csv_upload');
+Route::prefix('scv-admin')->middleware('auth:admin')->group(function(){
+    Route::get('download', [AdminCsvController::class,'adminCsvDownLoad'])->name('admin_csv_download');
+    Route::post('upload', [AdminCsvController::class, 'adminCsvUpload'])->name('admin_csv_upload');
+});
 
 //owner_csv
-Route::get('owner-csvdownload', [OwnerCsvController::class, 'ownerCsvDownLoad'])->middleware('auth:admin')->name('owner_csv_download');
-Route::post('owner-csvupload', [OwnerCsvController::class, 'ownerCsvUpLoad'])->middleware('auth:admin')->name('owner_csv_upload');
-
+Route::prefix('scv-owner')->middleware('auth:admin')->group(function(){
+    Route::get('download', [OwnerCsvController::class, 'ownerCsvDownload'])->name('owner_csv_download');
+    Route::post('upload', [OwnerCsvController::class, 'ownerCsvUpload'])->name('owner_csv_upload');
+});
 
 //admin_mail
-// 修正
-// URL mail-admin
-// prefix
-Route::get('admin-mail-create/{id}', [AdminSendMailController::class, 'create'])
-->middleware('auth:admin')
-->name('admin_create_mail');
-
-Route::post('admin-mail-confirm', [AdminSendMailController::class, 'confirm'])
-->middleware('auth:admin')
-->name('admin_confirm_mail');
-
-Route::post('admin-mail-send', [AdminSendMailController::class, 'send'])
-->middleware('auth:admin')
-->name('admin_send_mail');
+Route::prefix('mail-admin')->middleware(('auth:admin'))->group(function(){
+    Route::get('create/{id}', [AdminSendMailController::class, 'create'])->name('admin_create_mail');
+    Route::post('confirm', [AdminSendMailController::class, 'confirm'])->name('admin_confirm_mail');
+    Route::post('send', [AdminSendMailController::class, 'send'])->name('admin_send_mail');
+});
 
 //owner_mail
-Route::get('owner-create-mail/{id}', [OwnerSendMailController::class, 'create'])
-    ->middleware('auth:admin')
-    ->name('owner_create_mail');
-
-Route::post('owner-confirm-mail', [OwnerSendMailController::class, 'confirm'])
-    ->middleware('auth:admin')
-    ->name('owner_confirm_mail');
-
-Route::post('owner-send-mail', [OwnerSendMailController::class, 'send'])
-    ->middleware('auth:admin')
-    ->name('owner_send_mail');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
-
-    Route::post('register', [RegisteredUserController::class, 'store']);
-
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
-
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-
-    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-        ->name('password.request');
-
-    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-        ->name('password.email');
-
-    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-        ->name('password.reset');
-
-    Route::post('reset-password', [NewPasswordController::class, 'store'])
-        ->name('password.update');
+Route::prefix('mail-owner')->middleware(('auth:admin'))->group(function () {
+    Route::get('create/{id}', [OwnerSendMailController::class, 'create'])->name('owner_create_mail');
+    Route::post('confirm', [OwnerSendMailController::class, 'confirm'])->name('owner_confirm_mail');
+    Route::post('send', [OwnerSendMailController::class, 'send'])->name('owner_send_mail');
 });
 
-Route::middleware('auth:admin')->group(function () {
-    Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
-        ->name('verification.notice');
-
-    Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-        ->middleware(['signed', 'throttle:6,1'])
-        ->name('verification.verify');
-
-    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-        ->middleware('throttle:6,1')
-        ->name('verification.send');
-
-    Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-        ->name('password.confirm');
-
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
-
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
-});
+require __DIR__.'/admin_auth.php';

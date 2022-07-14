@@ -1,3 +1,3 @@
 
-<img src="{{ asset("images/admin_logo.png") }}" alt="">
+<img src="{{ asset("images/admin/admin_logo.png") }}" alt="">
 

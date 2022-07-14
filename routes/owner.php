@@ -26,14 +26,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('owner.welcome');
-// });
-
-Route::get('/dashboard', function () {
-    return view('owner.dashboard');
-})->middleware(['auth:owners'])->name('dashboard');
-
 // Ownerresource
 Route::resource('owners', OwnersController::class)
 ->middleware('auth:owners');
@@ -41,8 +33,6 @@ Route::resource('owners', OwnersController::class)
 // Userresource
 Route::resource('users', UsersController::class)
 ->middleware('auth:owners');
-
-
 
 // owner_expired
 Route::prefix('expired-owner')->middleware('auth:owners')->group(function () {

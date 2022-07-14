@@ -1,9 +1,11 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            <div class="flex justify-center">
+                <div class="w-1/6">
+                        <x-owner-logo class="" />
+                </div>
+            </div>
         </x-slot>
         オーナーログイン
         <!-- Session Status -->
