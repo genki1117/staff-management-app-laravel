@@ -11,8 +11,11 @@ use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\OwnersController;
 use App\Http\Controllers\Owner\OwnerCsvController;
 use App\Http\Controllers\Owner\OwnerSendMailController;
+use App\Http\Controllers\Owner\OwnersExpiredController;
 use App\Http\Controllers\Owner\UsersController;
 use App\Http\Controllers\Owner\UsersExpiredController;
+use App\Http\Controllers\Owner\UserCsvController;
+use App\Http\Controllers\Owner\UserSendMailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,9 +39,9 @@ Route::resource('users', UsersController::class)
 
 // owner_expired
 Route::prefix('expired-owner')->middleware('auth:owners')->group(function () {
-    Route::get('index', [OwnersController::class, 'expiredOwnerIndex'])->name('expired-owners.index');
-    Route::post('restore/{owner}', [OwnersController::class, 'expiredOwnerRestore'])->name('expired-owners.restore');
-    Route::post('destroy/{owner}', [OwnersController::class, 'expiredOwnerDestroy'])->name('expired-owners.destroy');
+    Route::get('index', [OwnersExpiredController::class, 'expiredOwnerIndex'])->name('expired-owners.index');
+    Route::post('restore/{owner}', [OwnersExpiredController::class, 'expiredOwnerRestore'])->name('expired-owners.restore');
+    Route::post('destroy/{owner}', [OwnersExpiredController::class, 'expiredOwnerDestroy'])->name('expired-owners.destroy');
 });
 
 //user_expired
@@ -50,16 +53,25 @@ Route::prefix('expired-user')->middleware('auth:owners')->group(function (){
 
 
 // owner_csv
-Route::get('csvdownload', [OwnerCsvController::class, 'ownerCsvDownload'])->middleware('auth:owners')->name('owner_csv_download');
-Route::post('csvupload', [OwnerCsvController::class, 'ownerCsvUpload'])->middleware('auth:owners')->name('owner_csv_upload');
+Route::get('owner-csvdownload', [OwnerCsvController::class, 'ownerCsvDownload'])->middleware('auth:owners')->name('owner_csv_download');
+Route::post('owner-csvupload', [OwnerCsvController::class, 'ownerCsvUpload'])->middleware('auth:owners')->name('owner_csv_upload');
 
 //user_csv
+Route::get('user-csvdownload', [UserCsvController::class, 'userCsvDownload'])->middleware('auth:owners')->name('user_csv_download');
+Route::post('user-csvupload', [UserCsvController::class, 'userCsvUpload'])->middleware('auth:owners')->name('user_csv_upload');
 
 //owner_mail
 Route::prefix('mail-owner')->middleware('auth:owners')->group(function () {
     Route::get('create/{id}', [OwnerSendMailController::class, 'create'])->name('owner_create_mail');
     Route::post('confirm',[OwnerSendMailController::class, 'confirm'])->name('owner_confirm_mail');
     Route::post('send', [OwnerSendMailController::class, 'send'])->name('owner_send_mail');
+});
+
+// user_mail
+Route::prefix('mail-user')->middleware('auth:owners')->group(function(){
+    Route::get('create/{id}', [UserSendMailController::class, 'create'])->name('user_create_mail');
+    Route::post('confirm', [UserSendMailController::class, 'confirm'])->name('user_confirm_mail');
+    Route::post('send', [UserSendMailController::class, 'send'])->name('user_send_mail');
 });
 
 

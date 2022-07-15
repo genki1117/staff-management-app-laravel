@@ -22,9 +22,9 @@
 
 
 Owner
-owner/expired
-user/csv
-user/sendmail
+/owner/expired
+/user/csv
+/user/sendmail
 
 .日本語化
 .検索機能
