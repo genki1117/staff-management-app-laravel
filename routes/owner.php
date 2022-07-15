@@ -1,13 +1,6 @@
 <?php
 
-use App\Http\Controllers\Owner\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Owner\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Owner\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Owner\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\Owner\Auth\NewPasswordController;
-use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Owner\Auth\RegisteredUserController;
-use App\Http\Controllers\Owner\Auth\VerifyEmailController;
+
 use App\Http\Controllers\Owner\OwnersController;
 use App\Http\Controllers\Owner\OwnerCsvController;
 use App\Http\Controllers\Owner\OwnerSendMailController;
@@ -51,14 +44,17 @@ Route::prefix('expired-user')->middleware('auth:owners')->group(function (){
     Route::post('destroy/{user}', [UsersExpiredController::class, 'expiredUserDestroy'])->name('expired-users.destroy');
 });
 
-
 // owner_csv
-Route::get('owner-csvdownload', [OwnerCsvController::class, 'ownerCsvDownload'])->middleware('auth:owners')->name('owner_csv_download');
-Route::post('owner-csvupload', [OwnerCsvController::class, 'ownerCsvUpload'])->middleware('auth:owners')->name('owner_csv_upload');
+Route::prefix('csv-owner')->middleware('auth:owners')->group(function(){
+    Route::get('download', [OwnerCsvController::class, 'ownerCsvDownload'])->name('owner_csv_download');
+    Route::post('upload', [OwnerCsvController::class, 'ownerCsvUpload'])->name('owner_csv_upload');
+});
 
 //user_csv
-Route::get('user-csvdownload', [UserCsvController::class, 'userCsvDownload'])->middleware('auth:owners')->name('user_csv_download');
-Route::post('user-csvupload', [UserCsvController::class, 'userCsvUpload'])->middleware('auth:owners')->name('user_csv_upload');
+Route::prefix('csv-user')->middleware('auth:owners')->group(function(){
+    Route::get('download', [UserCsvController::class, 'userCsvDownload'])->name('user_csv_download');
+    Route::post('upload', [UserCsvController::class, 'userCsvUpload'])->name('user_csv_upload');
+});
 
 //owner_mail
 Route::prefix('mail-owner')->middleware('auth:owners')->group(function () {
@@ -74,51 +70,4 @@ Route::prefix('mail-user')->middleware('auth:owners')->group(function(){
     Route::post('send', [UserSendMailController::class, 'send'])->name('user_send_mail');
 });
 
-
-
-
-Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
-
-    Route::post('register', [RegisteredUserController::class, 'store']);
-
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login');
-
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-
-    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-                ->name('password.request');
-
-    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-                ->name('password.email');
-
-    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-                ->name('password.reset');
-
-    Route::post('reset-password', [NewPasswordController::class, 'store'])
-                ->name('password.update');
-});
-
-Route::middleware('auth:owners')->group(function () {
-    Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
-                ->name('verification.notice');
-
-    Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-                ->middleware(['signed', 'throttle:6,1'])
-                ->name('verification.verify');
-
-    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware('throttle:6,1')
-                ->name('verification.send');
-
-    Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-                ->name('password.confirm');
-
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
-
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->name('logout');
-});
-
+require __DIR__.'/owner_auth.php';
