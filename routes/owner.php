@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Owner\OwnersController;
 use App\Http\Controllers\Owner\OwnerCsvController;
 use App\Http\Controllers\Owner\OwnerSendMailController;
