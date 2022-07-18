@@ -14,16 +14,9 @@ use App\Http\Controllers\User\UsersController;
 |
 */
 
-Route::get('/', function () {
-    return view('user.welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth:users'])->name('dashboard');
-
 Route::resource('users', UsersController::class)
-->middleware('auth:users');
+->middleware('auth:users')
+->only('index', 'show');
 
 
 require __DIR__.'/auth.php';

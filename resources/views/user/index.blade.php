@@ -13,11 +13,6 @@
                         <div class="container px-5 py-4 mx-auto text-right">
                             <div class="flex flex-col text-center w-full">
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                                <div class="text-right">
-                                    <button onclick="location.href='{{ route('owner.owners.create') }}'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-4 rounded">
-                                        新規登録
-                                    </button>
-                                </div>
                                 <x-flash-message/>
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
@@ -48,7 +43,7 @@
                                         <td class="md:px-4 py-3">{{ $user->department->name }}</td>
                                         <td class="md:px-4 py-3">
                                             {{-- <a href="{{ route('admin.show', $admin->id) }}" class="btn btn-primary btn-sm">詳細</a> --}}
-                                            <button onclick="location.href='{{ route('owner.owners.show', $user->id) }}'" class="text-white bg-indigo-400 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-500 rounded">
+                                            <button onclick="location.href='{{ route('user.users.show', $user->id) }}'" class="text-white bg-indigo-400 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-500 rounded">
                                                 詳細
                                             </button>
                                         </td>
@@ -58,10 +53,6 @@
                                 </table>
                                 {{ $users->links() }}
                             </div>
-                        </div>
-                        <div class="mt-8">
-                            <label for="csvdownload"><i class="fa-solid fa-download"></i></label>
-                            <a href="{{ route('owner.owner_csv_download') }}" id="csvdownload" >csvダウンロード</a>
                         </div>
                     </section>
                 </div>
