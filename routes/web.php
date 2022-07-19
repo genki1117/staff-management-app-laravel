@@ -14,6 +14,10 @@ use App\Http\Controllers\User\UsersController;
 |
 */
 
+Route::get('/', function () {
+    return view('user.welcome');
+});
+
 Route::resource('users', UsersController::class)
 ->middleware('auth:users')
 ->only('index', 'show');
