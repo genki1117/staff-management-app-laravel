@@ -31,3 +31,6 @@ Owner
 .logo、logoリンク修正
 
 
+owner/owner_expiredのredirect先確認
+
+
