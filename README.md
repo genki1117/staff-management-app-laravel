@@ -16,19 +16,18 @@ csvエクスポート<br>
 <br>
 ## デプロイ先URL(heroku)
 ※画像アップロードが調整中。<br><br>
-
 ・admin<br>
 https://hidden-meadow-42013.herokuapp.com/admin/login<br>
 ID: admin_test1@test.com<br>
-PASS: password123<br>
+PASS: password123<br><br>
 ・owner<br>
 https://hidden-meadow-42013.herokuapp.com/owner/login<br>
 ID: owner_test1@test.com<br>
-PASS: password123<br>
+PASS: password123<br><br>
 ・user<br>
 http://localhost/login<br>
 ID: user_test1@test.com<br>
-PASS: password123<br>
+PASS: password123<br><br>
 
 
 
